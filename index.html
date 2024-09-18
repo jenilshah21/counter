@@ -9,25 +9,13 @@
         }
 
         #counter {
-            font-size: 240px; /* Increased font size to 3 times */
+            font-size: 240px;
             margin-top: 100px;
-        }
-
-        #resetButton {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div id="counter">0</div>
-    <button id="resetButton">Reset</button>
 
     <script>
         let counter = 0;
@@ -67,12 +55,6 @@
             } else {
                 shakeCount = 0; // Reset shake count if acceleration is below threshold
             }
-        });
-
-        // Reset the counter to 0 when the button is clicked
-        resetButton.addEventListener("click", () => {
-            counter = 0;
-            updateCounter();
         });
 
         // Initial display

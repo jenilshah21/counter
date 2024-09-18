@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Counter App</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        #counter {
+            font-size: 80px;
+            margin-top: 100px;
+        }
+
+        #resetButton {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="counter">0</div>
+    <button id="resetButton">Reset</button>
+
+    <script>
+        let counter = 0;
+        const counterElement = document.getElementById("counter");
+        const resetButton = document.getElementById("resetButton");
+
+        // Update the counter display
+        function updateCounter() {
+            counterElement.textContent = counter;
+        }
+
+        // Increment the counter when the screen is touched
+        document.addEventListener("touchstart", () => {
+            if (counter < 1000) {
+                counter++;
+                updateCounter();
+            }
+        });
+
+        // Reset the counter to 0 when the button is clicked
+        resetButton.addEventListener("click", () => {
+            counter = 0;
+            updateCounter();
+        });
+
+        // Initial display
+        updateCounter();
+    </script>
+</body>
+</html>

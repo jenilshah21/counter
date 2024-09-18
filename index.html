@@ -9,7 +9,7 @@
         }
 
         #counter {
-            font-size: 500px;
+            font-size: 240px; /* Increased font size to 3 times */
             margin-top: 100px;
         }
 
@@ -31,8 +31,9 @@
 
     <script>
         let counter = 0;
+        let shakeCount = 0;
+        const shakeThreshold = 10; // Adjust this value as needed
         const counterElement = document.getElementById("counter");
-        const resetButton = document.getElementById("resetButton");
 
         // Update the counter display
         function updateCounter() {
@@ -41,9 +42,30 @@
 
         // Increment the counter when the screen is touched
         document.addEventListener("touchstart", () => {
-            if (counter < 10000) {
+            if (counter < 1000) {
                 counter++;
                 updateCounter();
+            }
+        });
+
+        // Add a DeviceMotionEvent listener
+        window.addEventListener("devicemotion", (event) => {
+            const acceleration = event.accelerationIncludingGravity;
+            const x = acceleration.x;
+            const y = acceleration.y;
+            const z = acceleration.z;
+
+            const totalAcceleration = Math.sqrt(x * x + y * y + z * z);
+
+            if (totalAcceleration > shakeThreshold) {
+                shakeCount++;
+                if (shakeCount === 2) {
+                    counter = 0;
+                    updateCounter();
+                    shakeCount = 0; // Reset shake count
+                }
+            } else {
+                shakeCount = 0; // Reset shake count if acceleration is below threshold
             }
         });
 

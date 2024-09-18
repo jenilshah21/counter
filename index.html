@@ -20,7 +20,7 @@
     <script>
         let counter = 0;
         let shakeCount = 0;
-        const shakeThreshold = 10; // Adjust this value as needed
+        const shakeThreshold = 5; // Adjust this value as needed
         const counterElement = document.getElementById("counter");
 
         // Update the counter display
@@ -47,7 +47,7 @@
 
             if (totalAcceleration > shakeThreshold) {
                 shakeCount++;
-                if (shakeCount === 2) {
+                if (shakeCount > 1) {
                     counter = 0;
                     updateCounter();
                     shakeCount = 0; // Reset shake count

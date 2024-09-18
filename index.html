@@ -19,11 +19,15 @@
 
     <div style="font-size: 40px;">Tap to increment, Shake to reset</div>
 
+    <!-- Button to request DeviceMotion permission -->
+    <button id="enableMotion" style="font-size: 20px; margin-top: 20px;">Enable Motion Detection</button>
+
     <script>
         let counter = 0;
         let shakeCount = 0;
         const shakeThreshold = 15; // Adjust this value as needed
         const counterElement = document.getElementById("counter");
+        const enableMotionButton = document.getElementById("enableMotion");
 
         // Update the counter display
         function updateCounter() {
@@ -66,6 +70,7 @@
                     .then(permissionState => {
                         if (permissionState === 'granted') {
                             window.addEventListener('devicemotion', handleMotionEvent);
+                            enableMotionButton.style.display = 'none'; // Hide the button after permission is granted
                         } else {
                             alert('DeviceMotion permission was denied.');
                         }
@@ -74,11 +79,12 @@
             } else {
                 // For non-iOS 13+ devices
                 window.addEventListener('devicemotion', handleMotionEvent);
+                enableMotionButton.style.display = 'none'; // Hide the button for non-iOS devices
             }
         }
 
-        // Ask for permission on page load
-        window.addEventListener("load", requestMotionPermission);
+        // Attach the permission request to the button click
+        enableMotionButton.addEventListener("click", requestMotionPermission);
 
         // Initial display
         updateCounter();

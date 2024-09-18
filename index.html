@@ -20,7 +20,7 @@
     <script>
         let counter = 0;
         let shakeCount = 0;
-        const shakeThreshold = 5; // Adjust this value as needed
+        const shakeThreshold = 10; // Adjust this value as needed
         const counterElement = document.getElementById("counter");
 
         // Update the counter display
@@ -30,7 +30,7 @@
 
         // Increment the counter when the screen is touched
         document.addEventListener("touchstart", () => {
-            if (counter < 1000) {
+            if (counter < 10000) {
                 counter++;
                 updateCounter();
             }

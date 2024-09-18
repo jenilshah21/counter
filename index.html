@@ -38,8 +38,8 @@
             }
         });
 
-        // Add a DeviceMotionEvent listener
-        window.addEventListener("devicemotion", (event) => {
+        // Function to handle device motion events
+        function handleMotionEvent(event) {
             const acceleration = event.accelerationIncludingGravity;
             const x = acceleration.x;
             const y = acceleration.y;
@@ -57,7 +57,28 @@
             } else {
                 shakeCount = 0; // Reset shake count if acceleration is below threshold
             }
-        });
+        }
+
+        // Request permission for iOS 13+ devices
+        function requestMotionPermission() {
+            if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                DeviceMotionEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener('devicemotion', handleMotionEvent);
+                        } else {
+                            alert('DeviceMotion permission was denied.');
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                // For non-iOS 13+ devices
+                window.addEventListener('devicemotion', handleMotionEvent);
+            }
+        }
+
+        // Ask for permission on page load
+        window.addEventListener("load", requestMotionPermission);
 
         // Initial display
         updateCounter();
